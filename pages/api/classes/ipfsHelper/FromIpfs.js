@@ -36,7 +36,7 @@ export default class ToIpfs {
     if (!fs.existsSync(download)) {
       fs.mkdirSync(download, { recursive: true });
     }
-   let info = await this.ipfs.dag.stat(cid)  
+   let info = await this.ipfs.object.stat(cid)  
    
        
     const resultBuffer = new Uint8Array(info.CumulativeSize+10000);
@@ -67,7 +67,7 @@ export default class ToIpfs {
 
   static async getFileInfo(job) {   
     let cid = job.ipfs.CID;
-    let info = await this.ipfs.dag.stat(cid)  
+    let info = await this.ipfs.object.stat(cid)  
   
     let magicBites = new Uint8Array([]); 
 
@@ -128,7 +128,7 @@ export default class ToIpfs {
     try {
       console.log("Connecting to ipfs: Getting file");      
 
-      let info = await this.ipfs.dag.stat(cid)
+      let info = await this.ipfs.object.stat(cid)
       const resultBuffer = new Uint8Array(info.CumulativeSize);
     
       let kubo_res = this.ipfs.cat(CID.parse(cid))     

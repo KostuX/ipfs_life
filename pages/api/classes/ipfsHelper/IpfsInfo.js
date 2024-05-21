@@ -26,7 +26,7 @@ export default class IpfsInfo {
        let cid = job.ipfs.CID   
 
         
-info = await this.ipfs.dag.stat(cid)
+info = await this.ipfs.object.stat(cid)
 
 job.ipfs.info = info
 return info
@@ -39,7 +39,7 @@ return info
         
  
          
- info = await this.ipfs.dag.stat(cid)
+ info = await this.ipfs.object.stat(cid)
  
 
  return info
