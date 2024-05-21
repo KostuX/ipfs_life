@@ -1,7 +1,6 @@
 import DefaultLayout from "@/layouts/default";
 import { ironOptions } from "./api/session/session_config";
 import { withIronSessionSsr } from "iron-session/next";
-import { useRouter } from "next/router";
 import Grid from "@mui/material/Grid";
 import { ipfsTooltip } from "../public/templates/tooltip/tooltip";
 import { getServerSession } from "next-auth";
@@ -12,7 +11,7 @@ import { useSearchParams } from "next/navigation";
 
 const path = require("path");
 
-React.useLayoutEffect = React.useEffect;
+
 
 import React, { useState, useEffect } from "react";
 import {
@@ -35,6 +34,7 @@ import myValidator from "./api/classes/myValidator";
 export default function IndexPage({ session }) {
   const validator = new myValidator();
   const searchParams = useSearchParams();
+
   let searchCID = "";
   let searchFilename = "";
   let enc_keys = [{ title: "NONE", created: "2024-04-15T14:02:56.951Z" }];
@@ -63,9 +63,7 @@ export default function IndexPage({ session }) {
     }
   }
 
-  //searchFilename = validator.clean(searchParams.get("filename"));
   let server = "/";
-
 
   const [download_Info, setDownload_Info] = useState(false);
   const [url_s, setUrl_s] = useState("");
@@ -91,7 +89,7 @@ export default function IndexPage({ session }) {
 
   const [err_msg, setErr_msg] = useState([]);
 
-  const [keyValue, setKeyValue] = React.useState("default");
+  const [keyValue, setKeyValue] = useState("default");
 
 
   //================================================================================ intervals
@@ -109,63 +107,7 @@ export default function IndexPage({ session }) {
   }
   //------------------------------------------------------------------- END intervals
 
-  //================================================================================= get link  RM
-  const getLink = async () => {
-    let endpoint = "/api/download";
-    let data = { cid: input };
-
-    let response = await fetch(endpoint, {
-      method: "POST",
-      body: JSON.stringify(data),
-      mode: "cors",
-      headers: { "Content-type": "application/json" },
-    });
-
-    if (response.status == 200) {
-      clearIntervalAll();
-      setIsSubmited(false);
-
-      response.headers.forEach((val, key) => {
-        if (key == "filename") {
-          // setFilename_state([...filename_state, val]);
-        } else if (key == "data") {
-          let data = JSON.parse(val);
-
-          let date = new Date();
-
-          const timestamp = date.toLocaleString().replaceAll("/", "_");
-          data.filename.push({ filename: timestamp, description: "TimeStamp" });
-
-          // get filename from URL parameter
-          let url_filename = filename_from_url();
-          if (url_filename.ok) {
-            data.filename.unshift({
-              filename: url_filename.filename,
-              description: "URL",
-            });
-            data.ext.unshift({ ext: url_filename.ext, description: "URL" });
-          }
-
-          setFileSize(data.size);
-          setSecured(data.secured);
-          setFileExt(data.ext);
-          setFilename_state(data.filename);
-          setSelectedOption(data.ext[0]);
-          setSelectedOption_f(data.filename[0]);
-        }
-      });
-
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-
-      if (url) {
-        setUrl_s(`${url}`);
-        clearIntervalAll();
-      }
-    }
-  };
-  //------------------------------------------------------------------- END get link
-
+ 
   const resubmitCID = async () => {
     let data = { cid: input };
     const options = {
@@ -178,9 +120,16 @@ export default function IndexPage({ session }) {
 
     await fetch("/api/get_by_CID", options);
   };
-  //=============================================================================== server
+
+
+
+  //=============================================================================== server/load balance
 
   const getServer = async (e) => {
+    // add for load balancing
+    
+    return "/";
+
     let data = { api: e, cid: input, time: Date.now() };
     let endpoint = "api/apiRouter";
     let response = await apiCall(endpoint, data);
@@ -212,16 +161,8 @@ export default function IndexPage({ session }) {
     let data = { cid: input, user: session.user };
 
     let response = await apiCall(endpoint, data);
+ 
 
-    /*
-     
-      let response = await fetch(endpoint, {
-        method: "POST",
-        body: JSON.stringify(d),
-        mode: "cors",
-        headers: { "Content-type": "application/json" },
-      });
-*/
 
     if (response.status == 202) {
       console.log("Job lost, resubmit..");
@@ -272,86 +213,10 @@ export default function IndexPage({ session }) {
   }
   // ---------------------------------------------------------------------END of url params
 
-  //==================================================================================== NON Streams
 
-  const decrypt = async () => {
-    setErr_msg([]);
-    let err = [];
-    let cid = cid_curr;
 
-    let valid_passkey = validator.text(
-      input_password,
-      6,
-      64,
-      "Passkey",
-      true
-    ).err;
 
-    err = err.concat(valid_passkey);
 
-    if (err.length > 0) {
-      setErr_msg(err);
-    } else {
-      let passKey = input_password;
-
-      // let endpoint = "/api/decryptApi";
-      let endpoint = "/api/decryptApi";
-      let data = {};
-
-      data.cid = cid;
-      data.passKey = passKey;
-
-      let response = await fetch(endpoint, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-type": "application/json;charset=utf-8" },
-      });
-
-      if (response.status == 200) {
-        setSecured(response.ok);
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        if (url) {
-          setUrl_s(`${url}`);
-        }
-      } else if (response.status == 201) {
-        setErr_msg([`Decryption failed. Please try again..`]);
-      }
-    }
-  };
-
-  const decrypt_key = async () => {
-    // keyValue
-
-    setErr_msg([]);
-    let cid = cid_curr;
-    let passKey = keyValue;
-
-    let endpoint = "/api/decryptKeyApi";
-    let data = {};
-
-    data.cid = cid;
-    data.passKey = passKey;
-
-    let response = await fetch(endpoint, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-type": "application/json;charset=utf-8" },
-    });
-
-    if (response.status == 200) {
-      setSecured(response.ok);
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      if (url) {
-        setUrl_s(`${url}`);
-      }
-    } else if (response.status == 201) {
-      setErr_msg([`Decryption failed. Please try again..`]);
-    }
-  };
-
-  //----------------------------------------------------------------------- END of non strams
   // ================================================================================== Download by CID
   const download = async () => {
     let endpoint = "/api/downloadFile";
@@ -410,13 +275,7 @@ export default function IndexPage({ session }) {
     try {
       server = await getServer(endpoint);
 
-      /*
-   let response = await fetch(server, {
-      method: "POST",      
-      body: JSON.stringify(data),
-     headers: { "Content-type": "application/json;charset=utf-8" },
-   });
-*/
+    
       let response = await apiCall(server, data);
 
       if (response.status == 202) {
@@ -788,6 +647,8 @@ export default function IndexPage({ session }) {
       document.removeEventListener("keydown", listener);
     };
   }, [input, handleSubmit]);
+
+  
   //=================================================== actual return
 
   return (
