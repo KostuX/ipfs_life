@@ -44,6 +44,6 @@ async function findBalance(api, i) {
   let servers = WorkerInfo.getLessUserCount();
   i = Math.floor(Math.random() * (servers.length - 0)) + 0;
 
-  return `http://localhost:18888${api}`;
+  return `/:18888${api}`;
   return `${servers[i].address}${api}`;
 }
