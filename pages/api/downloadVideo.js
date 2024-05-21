@@ -1,10 +1,9 @@
 const parseRange = require("range-parser");
 import { create } from "kubo-rpc-client";
 
-import hartBeat from "./services/hartbeat";
+
 
 const { Readable } = require("stream");
-import UserMng from "./userMng/userCount";
 
 let ipfs = create({ url: "http://127.0.0.1:5001/api/v0" });
 
@@ -62,10 +61,6 @@ export default async (req, res) => {
     range: range,
   };
 
-  UserMng.addUser(user);
-  UserMng.cleanUserList();
 
-  let usr = UserMng.getUserList();
 
-  hartBeat();
 };
