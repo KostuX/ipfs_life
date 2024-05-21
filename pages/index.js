@@ -128,7 +128,7 @@ export default function IndexPage({ session }) {
   const getServer = async (e) => {
     // add for load balancing
     
-    return "/";
+  
 
     let data = { api: e, cid: input, time: Date.now() };
     let endpoint = "api/apiRouter";
@@ -161,7 +161,6 @@ export default function IndexPage({ session }) {
     let data = { cid: input, user: session.user };
 
     let response = await apiCall(endpoint, data);
- 
 
 
     if (response.status == 202) {
@@ -275,7 +274,13 @@ export default function IndexPage({ session }) {
     try {
       server = await getServer(endpoint);
 
-    
+      /*
+   let response = await fetch(server, {
+      method: "POST",      
+      body: JSON.stringify(data),
+     headers: { "Content-type": "application/json;charset=utf-8" },
+   });
+*/
       let response = await apiCall(server, data);
 
       if (response.status == 202) {
@@ -326,7 +331,11 @@ export default function IndexPage({ session }) {
         URL.revokeObjectURL(url);
       }
     } catch (err) {
-      setErr_msg([err]);
+
+
+
+      console.log(err)
+      setErr_msg([err.toString()]);
     }
   }
 
@@ -647,8 +656,6 @@ export default function IndexPage({ session }) {
       document.removeEventListener("keydown", listener);
     };
   }, [input, handleSubmit]);
-
-  
   //=================================================== actual return
 
   return (

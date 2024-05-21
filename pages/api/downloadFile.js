@@ -1,32 +1,44 @@
-const path = require("path");
-const fs = require("fs");
-const stats_fromIPFS_db = require("./database/queries/stats_fromIPFS");
+import { CID } from "multiformats";
+import { create, globSource, urlSource } from "kubo-rpc-client";
+const { Readable } = require("stream");
 
-import fromIpfs from "./classes/ipfsHelper/FromIpfs";
-import Jobs from "./classes/Jobs";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req, res) => {
-  let cid = JSON.parse(req.body).cid;
+  let ipfs = create({ url: "http://127.0.0.1:5001/api/v0" });
 
-  req.session.path[0].clicks.push({ type: "download", time: new Date() });
-  await req.session.save();
+  if (req.body) {
+    res.setHeader("Content-Type", "application/octet-stream");
 
-  let job = Jobs.getByCID(cid);
-  if (Object.keys(job) == 0) {
-    res.status(202).send();
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
+
+    let cid;
+    try {
+      let d = JSON.parse(req.body);
+      cid = d.cid;
+    } catch (e) {
+      cid = req.body.cid;
+    }
+
+    let kubo_res = ipfs.cat(CID.parse(cid));
+    let ipfsStream = Readable.from(kubo_res);
+
+    ipfsStream.pipe(res);
+
+    res.on("close", () => {
+      console.log("end of stream");
+    });
+  } else {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
+    res.status(200).send();
   }
-
-  res.setHeader("Content-Type", "application/octet-stream");
-
-  if (job.type == "file") {
-    let fileStream = fromIpfs.getFileStream(job);
-    fileStream.pipe(res);
-  } else if (job.type == "folder") {
-    let fileStream = fromIpfs.getFolderStream(job);
-    fileStream.pipe(res);
-  }
-
-  res.on("close", () => {
-    console.log("end of stream");
-  });
 };

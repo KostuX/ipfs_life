@@ -69,16 +69,12 @@ export default class ToIpfs {
     console.log("Connecting to ipfs: Getting file info");    
     let cid = job.ipfs.CID;
   
-    let info = await this.ipfs.object.stat(cid)  
-    console.log(info, "cid")
+    let info = await this.ipfs.object.stat(cid)     
   
-    let magicBites = new Uint8Array([]); 
-
-   
+    let magicBites = new Uint8Array([]);    
 
     try {
-     
-      let kubo_res = this.ipfs.cat(CID.parse(cid))    
+           let kubo_res = this.ipfs.cat(CID.parse(cid))   
     
         for await (const resp of kubo_res) { 
             magicBites = resp.slice(0, 32);
