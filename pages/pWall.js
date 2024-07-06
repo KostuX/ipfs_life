@@ -220,10 +220,7 @@ export default function WallPage({ session }) {
         justify="center"
         style={{ marginTop: 30 }}
       >
-        <Grid xs={3} item={true} style={{}}>
-          {ipfsTooltip()}
-          {pWallTooltip()}
-        </Grid>
+        <Grid xs={3} item={true} style={{}}></Grid>
         <Grid xs={6} item={true} style={{}} justify="center">
           <Input
             type="text"

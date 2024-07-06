@@ -6,12 +6,9 @@ import { ipfsTooltip } from "../public/templates/tooltip/tooltip";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-
 import { useSearchParams } from "next/navigation";
 
 const path = require("path");
-
-
 
 import React, { useState, useEffect } from "react";
 import {
@@ -91,7 +88,6 @@ export default function IndexPage({ session }) {
 
   const [keyValue, setKeyValue] = useState("default");
 
-
   //================================================================================ intervals
   // intervals mng
   var intervals = [];
@@ -107,7 +103,6 @@ export default function IndexPage({ session }) {
   }
   //------------------------------------------------------------------- END intervals
 
- 
   const resubmitCID = async () => {
     let data = { cid: input };
     const options = {
@@ -121,14 +116,10 @@ export default function IndexPage({ session }) {
     await fetch("/api/get_by_CID", options);
   };
 
-
-
   //=============================================================================== server/load balance
 
   const getServer = async (e) => {
     // add for load balancing
-    
-  
 
     let data = { api: e, cid: input, time: Date.now() };
     let endpoint = "api/apiRouter";
@@ -161,7 +152,6 @@ export default function IndexPage({ session }) {
     let data = { cid: input, user: session.user };
 
     let response = await apiCall(endpoint, data);
-
 
     if (response.status == 202) {
       console.log("Job lost, resubmit..");
@@ -211,10 +201,6 @@ export default function IndexPage({ session }) {
     return { ok: false };
   }
   // ---------------------------------------------------------------------END of url params
-
-
-
-
 
   // ================================================================================== Download by CID
   const download = async () => {
@@ -331,10 +317,7 @@ export default function IndexPage({ session }) {
         URL.revokeObjectURL(url);
       }
     } catch (err) {
-
-
-
-      console.log(err)
+      console.log(err);
       setErr_msg([err.toString()]);
     }
   }
@@ -670,9 +653,7 @@ export default function IndexPage({ session }) {
         justify="center"
         style={{ marginTop: 30 }}
       >
-        <Grid xs={3} item={true}>
-          {ipfsTooltip()}
-        </Grid>
+        <Grid xs={3} item={true}></Grid>
         <Grid xs={6} item={true} className="flex justify-center items-center">
           <Image isZoomed width={50} alt="IPFS" src="logo/logo_white_s.png" />{" "}
           IPFS
@@ -811,7 +792,6 @@ export const getServerSideProps = withIronSessionSsr(
       session.keys = context?.req?.session?.keys;
     }
 
-  
     return {
       props: {
         session: JSON.stringify(session),

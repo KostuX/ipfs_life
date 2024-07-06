@@ -218,10 +218,7 @@ export default function Media({ session }) {
         justify="center"
         style={{ marginTop: 30 }}
       >
-        <Grid xs={3} item={true}>
-          {ipfsTooltip()}
-          {mediaTooltip()}
-        </Grid>
+        <Grid xs={3} item={true}></Grid>
         <Grid xs={6} item={true} justify="center">
           <div className="text-center ">
             {/*    title*/}

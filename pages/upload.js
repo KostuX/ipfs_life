@@ -546,10 +546,7 @@ export default function UploadPage({ session }) {
           xs={4}
           item={true}
           style={{ order: "1px solid grey", height: "100px" }}
-        >
-          {ipfsTooltip()}
-          {optionsTooltip()}
-        </Grid>
+        ></Grid>
         {/*  file drop    */}
         <Grid
           xs={4}
