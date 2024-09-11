@@ -1,5 +1,5 @@
 import DefaultLayout from "@/layouts/default";
-import { ironOptions } from "./api/session/session_config";
+import { ironOptions } from "../config/session_config";
 import { withIronSessionSsr } from "iron-session/next";
 import Grid from "@mui/material/Grid";
 import { ipfsTooltip } from "../public/templates/tooltip/tooltip";
@@ -87,6 +87,33 @@ export default function IndexPage({ session }) {
   const [err_msg, setErr_msg] = useState([]);
 
   const [keyValue, setKeyValue] = useState("default");
+
+  //================================================================================ Log connected user
+  useEffect(() => {
+    // get user IP address
+    async function getIP() {
+      try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+
+        let ip = data.ip;
+        // let ip = '1.1.1.1'
+
+        let data_add = {
+          type: "add",
+          data: { type: "connected", data: { ip: ip } },
+        };
+        fetch("/api/LoggerAPI", {
+          method: "POST",
+          body: JSON.stringify(data_add),
+          headers: { "Content-type": "application/json" },
+        });
+      } catch (error) {
+        console.error("Error fetching the IP address:", error);
+      }
+    }
+    getIP();
+  }, []);
 
   //================================================================================ intervals
   // intervals mng
