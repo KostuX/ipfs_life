@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "./session_config";
+import { ironOptions } from "../../../config/session_config";
 
 export default withIronSessionApiRoute(loginRoute, ironOptions);
 

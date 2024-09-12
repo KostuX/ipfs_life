@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "./session/session_config";
+import { ironOptions } from "../../config/session_config";
 import Jobs from "./classes/Jobs";
 import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";

@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "./session/session_config";
+import { ironOptions } from "../../config/session_config";
 
 import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";

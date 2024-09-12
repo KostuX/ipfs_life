@@ -1,5 +1,5 @@
 import DefaultLayout from "@/layouts/default";
-import { ironOptions } from "./api/session/session_config";
+import { ironOptions } from "../config/session_config.js";
 import { withIronSessionSsr } from "iron-session/next";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -213,8 +213,6 @@ export const getServerSideProps = withIronSessionSsr(
       authOptions
     );
 
-  
-
     if (!session) {
       session = {};
       let address = context.req.socket.remoteAddress;
@@ -226,8 +224,6 @@ export const getServerSideProps = withIronSessionSsr(
     }
 
     if (session.user) {
-    
-    
       return {
         props: {
           session: JSON.stringify(session),

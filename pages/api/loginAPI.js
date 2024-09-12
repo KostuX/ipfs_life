@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "./session/session_config";
+import { ironOptions } from "../../config/session_config";
 
 const getUser_db = require("./database/queries/getUser");
 const getUserKeys_db = require("./database/queries/getUserKeys");

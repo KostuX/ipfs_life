@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "../api/session/session_config";
+import { ironOptions } from "../../config/session_config";
 import { create } from "kubo-rpc-client";
 import { CID } from "multiformats/cid";
 import myValidator from "./classes/myValidator";

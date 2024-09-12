@@ -1,7 +1,7 @@
 import DefaultLayout from "@/layouts/default";
-import { ironOptions } from "./api/session/session_config";
+import { ironOptions } from "../config/session_config.js";
 import { withIronSessionSsr } from "iron-session/next";
-import { useRouter } from "next/router";
+
 import Grid from "@mui/material/Grid";
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";

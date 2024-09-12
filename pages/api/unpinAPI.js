@@ -5,7 +5,7 @@ import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import pinataUnpin from "./userStorage/pinataUnpin.js";
 import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "./session/session_config";
+import { ironOptions } from "../../config/session_config";
 import db_rmPin from "./database/queries/removePin";
 
 // eslint-disable-next-line import/no-anonymous-default-export

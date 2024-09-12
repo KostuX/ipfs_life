@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "./session/session_config";
+import { ironOptions } from "../../config/session_config";
 const addUser_db = require("./database/queries/createUser");
 const userInit = require("./classes/newUserInit");
 const bcrypt = require("bcrypt");

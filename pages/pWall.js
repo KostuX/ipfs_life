@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import DefaultLayout from "@/layouts/default";
 import clipboard from "clipboard-copy";
-import { ironOptions } from "./api/session/session_config";
+import { ironOptions } from "../config/session_config.js";
 import { withIronSessionSsr } from "iron-session/next";
 import { useRouter } from "next/router";
 import Grid from "@mui/material/Grid";
 import { Snackbar, Slide } from "@mui/material";
 import myValidator from "./api/classes/myValidator";
-import axios from "axios";
+
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+
 import { ipfsTooltip, pWallTooltip } from "../public/templates/tooltip/tooltip";
 import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { useSession } from "next-auth/react";
+
 import {
   Button,
   Input,

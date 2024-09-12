@@ -1,16 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import DefaultLayout from "@/layouts/default";
-import { ironOptions } from "./api/session/session_config.js";
+import { ironOptions } from "../config/session_config.js";
 import { withIronSessionSsr } from "iron-session/next";
 import { useRouter } from "next/router";
-import Grid from "@mui/material/Grid";
+
 import history_db from "./api/database/queries/getHistory.js";
 import db_pins from "./api/database/queries/getPins";
 import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { useSession } from "next-auth/react";
-
-import { timeAgo } from "../lib/time-ago.ts";
 
 import {
   Tabs,
@@ -394,7 +391,7 @@ export const getServerSideProps = withIronSessionSsr(
 
     if (!session) {
       session = {};
-    
+
       let address = context.req.socket.remoteAddress;
       let port = context.req.socket.remotePort;
       session.connection = { address: address, port: port };

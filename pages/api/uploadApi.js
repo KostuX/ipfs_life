@@ -6,7 +6,7 @@ const fs = require("fs");
 let db_CreateAll = require("./database/queries/createTable");
 let db_addFile = require("./database/queries/addFileHeader");
 import { withIronSessionApiRoute } from "iron-session/next";
-import { ironOptions } from "./session/session_config";
+import { ironOptions } from "../../config/session_config";
 import myValidator from "./classes/myValidator";
 import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
