@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 import { useSearchParams } from "next/navigation";
+import myValidator from "./api/classes/myValidator";
 
 const path = require("path");
 
@@ -25,8 +26,6 @@ import {
   SelectItem,
   Progress,
 } from "@nextui-org/react";
-
-import myValidator from "./api/classes/myValidator";
 
 export default function IndexPage({ session }) {
   const validator = new myValidator();

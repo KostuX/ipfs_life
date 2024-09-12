@@ -10,7 +10,6 @@ export default withIronSessionApiRoute(LoggerAPI, ironOptions);
 async function LoggerAPI(req, res) {
   res.status(200).send();
   let data = req.body;
-  console.log(data);
 
   if (data?.type === "add") {
     log_write("INFO", `[*] ${data.data.type} - ${data.data.data.ip}`);
