@@ -8,7 +8,7 @@ export default class myValidator {
     cid = this.clean(cid);
     cid = this.black_escape(cid);
 
-    let e = this.text(cid, 5, 50, "CID", true).err;
+    let e = this.text(cid, 5, 100, "CID", true).err;
     err = err.concat(e);
     try {
       CID.parse(cid);
