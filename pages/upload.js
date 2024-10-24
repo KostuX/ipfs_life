@@ -323,9 +323,19 @@ export default function UploadPage({ session }) {
     }
   };
 
+  function removeFileFromUploadList(index) {
+    let msg = `File removed: ${uploadedFiles[index].name}`;
+    notification(msg);
+
+    if (index > -1) {
+      let arr = uploadedFiles;
+      arr.splice(index, 1);
+      setUploadedFiles([...arr]);
+    }
+  }
+
   function notification(msg) {
-    let message = `Copied to clipboard: ${msg}`;
-    setSnackMessage(message);
+    setSnackMessage(msg);
     setOpen(true);
   }
 
@@ -538,7 +548,6 @@ export default function UploadPage({ session }) {
     <DefaultLayout session={session}>
       {/*  Top line    */}
       <Grid
-        class
         gap={2}
         container
         wrap="nowrap"
@@ -563,10 +572,10 @@ export default function UploadPage({ session }) {
           item={true}
           {...getRootProps()}
         >
-          <p>Drag and drop</p>
-          <p>OR</p>
-          <p>Click to upload</p>
-          <p class="flex justify-center"></p>
+          <p>Drag and Drop</p>
+          <p>Or</p>
+          <p>Click</p>
+
           <input {...getInputProps()} />
           <DragNdrop />
         </Grid>
@@ -664,12 +673,24 @@ export default function UploadPage({ session }) {
         <Grid xs={2} item={true}></Grid>
         {/*  List of Files    */}
         <Grid xs={8} item={true}>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center ">
             <ul>
-              {uploadedFiles.map((file) => (
-                <li key={file.name}>
+              {uploadedFiles.map((file, index) => (
+                <li key={file.name} className="mb-2">
                   {file.name}
                   {"     " + formatBytes(file.size)}
+                  <Button
+                    className="ml-2"
+                    isIconOnly
+                    size="sm"
+                    color="danger"
+                    aria-label="Like"
+                    onPress={(x) => {
+                      removeFileFromUploadList(index);
+                    }}
+                  >
+                    {" X "}
+                  </Button>
                 </li>
               ))}
             </ul>

@@ -16,6 +16,7 @@ async function LoggerAPI(req, res) {
 
     // log user that connected to server
     if (data.data.type === "connected") {
+      if (data.data.data.ip == process.env.SERVER_IP) return;
       userConnected(data.data);
     }
   }

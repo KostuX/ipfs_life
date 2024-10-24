@@ -231,7 +231,7 @@ export const SearchIcon = (props: IconSvgProps) => (
 export const DragNdrop = ({size = 1, width,height, ...props}: IconSvgProps) => (
 	<svg
 		
-		fill="none"
+		fill="currentColor"
 	width={100}
 	height={100}
 viewBox="-100 -100  1000 1000"
