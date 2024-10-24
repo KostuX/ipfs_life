@@ -61,6 +61,7 @@ export default function UploadPage({ session }) {
   const [opt_pass_pass, setOpt_pass_pass] = useState("");
   const [open, setOpen] = useState(false);
   const [snackMessage, setSnackMessage] = useState("");
+  const [pageState, setPageState] = useState("start");
 
   const [secure_type, setSecure_type] = useState(["shadow", "bordered"]);
 
@@ -675,7 +676,7 @@ export default function UploadPage({ session }) {
         <Grid xs={2} item={true}></Grid>
         {/*  List of Files    */}
         <Grid xs={8} item={true}>
-          <div className="flex justify-center items-center ">
+          <div className="flex justify-center items-center mt-5 ">
             <ul>
               {uploadedFiles.map((file, index) => (
                 <li key={file.name} className="mb-2">
@@ -686,7 +687,7 @@ export default function UploadPage({ session }) {
                     isIconOnly
                     size="sm"
                     color="danger"
-                    aria-label="Like"
+                    aria-label="remove"
                     onPress={(x) => {
                       removeFileFromUploadList(index);
                     }}
