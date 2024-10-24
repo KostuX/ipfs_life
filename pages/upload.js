@@ -166,6 +166,8 @@ export default function UploadPage({ session }) {
           if (response?.job?.ipfs?.CID) {
             clearInterval(jobUpdateInterval);
             setCID([response?.job?.ipfs?.CID]);
+            setUploadedFiles([]);
+            setProgress(0);
           }
           break;
         }
