@@ -7,6 +7,8 @@ import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { useSession } from "next-auth/react";
 
+import Image from "next/image.js";
+import { DragNdrop } from "../components/icons.tsx";
 import React, { useState, useEffect } from "react";
 import clipboard from "clipboard-copy";
 import { Snackbar, Slide } from "@mui/material";
@@ -81,6 +83,7 @@ export default function UploadPage({ session }) {
   }
 
   let pin_allowance = 1000 * 1000 * 1000;
+
   //pin_allowance
   let totUsage = 0;
   pins.forEach((e) => {
@@ -535,6 +538,7 @@ export default function UploadPage({ session }) {
     <DefaultLayout session={session}>
       {/*  Top line    */}
       <Grid
+        class
         gap={2}
         container
         wrap="nowrap"
@@ -552,15 +556,21 @@ export default function UploadPage({ session }) {
           xs={4}
           style={{
             border: "1px solid grey",
-            height: "100px",
+            height: "150px",
             borderRadius: 10,
+            textAlign: "center",
           }}
           item={true}
           {...getRootProps()}
         >
-          <p>Drag and drop files here or click to browse.</p>
+          <p>Drag and drop</p>
+          <p>OR</p>
+          <p>Click to upload</p>
+          <p class="flex justify-center"></p>
           <input {...getInputProps()} />
+          <DragNdrop />
         </Grid>
+
         <Grid xs={4} item={true} style={{}}>
           {options()}
         </Grid>
