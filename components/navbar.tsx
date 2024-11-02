@@ -403,7 +403,7 @@ function userButtons(user){
 				
 				
 			</NavbarContent>
-			<NavbarContent justify="center">
+			<NavbarContent justify="center" className="hidden sm:flex">
 	{siteConfig.navItems.map((item) => (
 						<NavbarItem key={item.href} >
 							<NextLink
@@ -470,21 +470,25 @@ function userButtons(user){
 
       <NavbarMenu>
 				
-				<div className="mx-4 mt-2 flex flex-col gap-2">
+				<div className="mx-4 mt-2 flex flex-col gap-4  text-center ">
 					{siteConfig.navMenuItems.map((item, index) => (
 						<NavbarMenuItem key={`${item}-${index}`}>
 							<Link
-								color={
-									index === 2
-										? "primary"
-										: index === siteConfig.navMenuItems.length - 1
-										? "danger"
-										: "foreground"
-								}
+								color={ "foreground"}
 								href={item.href}
 								size="lg"
+								className="text-justify text-center"
 							>
-								{item.label}
+							
+
+							<a class="group transition-all duration-300 ease-in-out" href="#">
+  <span className="bg-left-bottom bg-gradient-to-r from-green-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+  {item.label}
+  </span>
+</a>
+
+							
+								
 							</Link>
 						</NavbarMenuItem>
 					))}
