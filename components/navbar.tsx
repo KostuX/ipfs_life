@@ -477,15 +477,15 @@ function userButtons(user){
 								color={ "foreground"}
 								href={item.href}
 								size="lg"
-								className="text-justify text-center"
+								className="text-justify text-center group transition-all duration-300 ease-in-out"
 							>
 							
 
-							<a class="group transition-all duration-300 ease-in-out" href="#">
-  <span className="bg-left-bottom bg-gradient-to-r from-green-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+						
+  <p className="bg-left-bottom bg-gradient-to-r from-green-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
   {item.label}
-  </span>
-</a>
+  </p>
+
 
 							
 								
