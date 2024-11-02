@@ -470,7 +470,7 @@ function userButtons(user){
 
       <NavbarMenu>
 				
-				<div className="mx-4 mt-2 flex flex-col gap-4  text-center ">
+				<div className=" flex flex-col gap-4  text-center  grid place-content-center">
 					{siteConfig.navMenuItems.map((item, index) => (
 						<NavbarMenuItem key={`${item}-${index}`}>
 							<Link
@@ -493,8 +493,13 @@ function userButtons(user){
 							
 						</NavbarMenuItem>
 					))}
-					       <GoogleSignInButton />
-						   <GithubSignInButton />
+					
+					<div className=" border-y-4">
+					< p className="text-xl" >Login</p>
+					<GoogleSignInButton />
+					<GithubSignInButton />
+					</div>
+					       
 				</div>
 			</NavbarMenu>
 		</NextUINavbar>
