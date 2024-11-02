@@ -490,8 +490,11 @@ function userButtons(user){
 							
 								
 							</Link>
+							
 						</NavbarMenuItem>
 					))}
+					       <GoogleSignInButton />
+						   <GithubSignInButton />
 				</div>
 			</NavbarMenu>
 		</NextUINavbar>
