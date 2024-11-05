@@ -39,7 +39,7 @@
     "types/index.js",
     "layouts/default.js",
     "layouts/head.js",
-    "components/navbar.tsx",
+    "components/navbar/navbar.tsx",
     ".next/types/**/*.ts"
   ],
   "exclude": [

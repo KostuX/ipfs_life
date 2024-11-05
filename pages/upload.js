@@ -563,6 +563,7 @@ export default function UploadPage({ session }) {
           style={{ order: "1px solid grey", height: "100px" }}
         ></Grid>
         {/*  file drop    */}
+        
         <Grid
           xs={4}
           style={{
@@ -574,6 +575,7 @@ export default function UploadPage({ session }) {
           item={true}
           {...getRootProps()}
         >
+          
           <p>Drag and Drop</p>
           <p>Or</p>
           <p>Click</p>

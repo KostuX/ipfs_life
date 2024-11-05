@@ -3,11 +3,12 @@ import Image from "next/image";
 import googleLogo from "@/public/google.png";
 import githubLogo from "@/public/github.png";
 import { useSession , signOut} from "next-auth/react";
+import {MenuItems} from "./menuItems"
 import {
   CredentialsSignInButton,
   GithubSignInButton,
   GoogleSignInButton,
-} from "@/components/authButtons";
+} from "@/components/navbar/authButtons";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -45,11 +46,13 @@ import { ThemeSwitch } from "@/components/theme-switch";
 
 import { Logo } from "@/components/icons";
 
-import myValidator from "../pages/api/classes/myValidator"
+import myValidator from "../../pages/api/classes/myValidator"
 import Google from "next-auth/providers/google";
 
 
 export const Navbar = (session) => {
+
+	console.log(session)
 
 	
 	const validator = new myValidator();
@@ -139,7 +142,9 @@ err = err.concat(valid_pass).concat(valid_username).concat(valid_email)
 		
 		}
 
-		const handleLogin = async (e) =>{	
+		
+
+	const handleLogin = async (e) =>{	
 			let err = []		
 			let password  = loginInput.password	
 			let username = loginInput.username
@@ -189,7 +194,7 @@ err = err.concat(valid_pass).concat(valid_username).concat(valid_email)
 			
 			}
 
-			const handleSelect = async (e) => {
+	const handleSelect = async (e) => {
 				if (e == "logout") {			
 						const response = await fetch("../api/session/session_logout");
 						const result = await response.json();
@@ -207,7 +212,7 @@ err = err.concat(valid_pass).concat(valid_username).concat(valid_email)
 			}
 
 
-function userButtons(user){
+	function userButtons(user){
 	
 
 	if(user){return(
@@ -404,6 +409,8 @@ function userButtons(user){
 				
 			</NavbarContent>
 			<NavbarContent justify="center" className="hidden sm:flex">
+			
+
 	{siteConfig.navItems.map((item) => (
 						<NavbarItem key={item.href} >
 							<NextLink
@@ -419,7 +426,7 @@ function userButtons(user){
 						</NavbarItem>
 					))}
 
-					{user_session&& <NavbarItem key="history" >
+					{user_session && <NavbarItem key="history" >
 							<NextLink
 								className={									
 									clsx(
@@ -431,7 +438,7 @@ function userButtons(user){
 								History
 							</NextLink>
 						</NavbarItem>}
-						{user_session&&
+						{user_session &&
 							<NavbarItem key="stats" >
 							<NextLink
 								className={									
@@ -471,6 +478,8 @@ function userButtons(user){
       <NavbarMenu>
 				
 				<div className=" flex flex-col gap-4  text-center  grid place-content-center">
+				<MenuItems />
+				{/*}
 					{siteConfig.navMenuItems.map((item, index) => (
 						<NavbarMenuItem key={`${item}-${index}`}>
 							<Link
@@ -493,6 +502,7 @@ function userButtons(user){
 							
 						</NavbarMenuItem>
 					))}
+					{*/}
 					
 					<div className=" border-y-4">
 					< p className="text-xl" >Login</p>
