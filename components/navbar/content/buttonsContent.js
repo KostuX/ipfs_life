@@ -8,6 +8,12 @@ import {
   ModalBody,
   ModalFooter,
   Input,
+  Dropdown,
+  DropdownTrigger,
+  Avatar,
+  DropdownMenu,
+  DropdownItem,
+  User,
 } from "@nextui-org/react";
 import React, { useState } from "react";
 import { ThemeSwitch } from "@/components/theme-switch";
