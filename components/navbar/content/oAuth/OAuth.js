@@ -1,7 +1,7 @@
 import {
   GithubSignInButton,
   GoogleSignInButton,
-} from "@/components/navbar/content/oAuth/authButtons";
+} from "@/components/navbar/content/OAuth/authButtons";
 export const OAuth = () => {
   return (
     <div className=" border-y-4 pb-6">

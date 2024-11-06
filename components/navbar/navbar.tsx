@@ -12,7 +12,7 @@ import {
   CredentialsSignInButton,
   GithubSignInButton,
   GoogleSignInButton,
-} from "@/components/navbar/content/oAuth/authButtons";
+} from "@/components/navbar/content/OAuth/authButtons";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";

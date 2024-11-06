@@ -20,7 +20,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import {
   GithubSignInButton,
   GoogleSignInButton,
-} from "@/components/navbar/content/oAuth/authButtons";
+} from "@/components/navbar/content/OAuth/authButtons";
 
 export function ButtonsContent(props) {
   let user_session = props.user_session;
