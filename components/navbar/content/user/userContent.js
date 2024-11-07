@@ -72,42 +72,6 @@ export const UserContent = (prop) => {
           </DropdownMenu>
         </Dropdown>
       </div>
-      {/*}
-      <div className="flex items-center gap-4">
-        <Dropdown placement="bottom-start">
-          <DropdownTrigger>
-            <User
-              as="button"
-              avatarProps={{
-                src: user?.image,
-              }}
-            />
-          </DropdownTrigger>
-          <DropdownMenu
-            aria-label="User Actions"
-            variant="flat"
-            onAction={(actionKey) => {
-              handleSelect(actionKey);
-            }}
-          >
-            <DropdownItem
-              key="profile"
-              className="h-14 gap-2"
-              textValue="textValue"
-            >
-              <p className="font-bold">Signed in as</p>
-              <p className="font-bold">{user?.name}</p>
-            </DropdownItem>
-            <DropdownItem key="settings">My Settings</DropdownItem>
-
-            <DropdownItem key="logout" withDivider color="danger">
-              Log Out
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-      </div>
-
-      {*/}
     </>
   );
 };
