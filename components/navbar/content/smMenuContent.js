@@ -10,9 +10,11 @@ export const SmMenuContent = (props) => {
       <div className=" flex flex-col gap-4  text-center   place-content-center">
         <MenuItems user_session={props} />
       </div>
-      <div className=" mt-10  text-center px-10 place-content-center">
+      <div className=" m-10 border-y-1 text-center px-10 place-content-center">
         {user_session ? (
-          <UserContent user={user_session} />
+          <div className=" m-10">
+            <UserContent user={user_session} displayUser="full" />
+          </div>
         ) : (
           <div>
             <OAuth />

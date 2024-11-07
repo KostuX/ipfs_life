@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 export const UserContent = (prop) => {
   const router = useRouter();
 
-  let user = prop.user;
+  let user = prop?.user;
 
   const handleSelect = async (e) => {
     if (e == "logout") {
@@ -28,17 +28,26 @@ export const UserContent = (prop) => {
 
   return (
     <>
-      <div className=" gap-4  border-y-1 ">
+      <div className=" gap-4  ">
         <Dropdown placement="bottom-ends ">
-          <DropdownTrigger className="m-10">
-            <User
-              as="button"
-              name={user?.name}
-              description={user.email}
-              avatarProps={{
-                src: user?.image,
-              }}
-            />
+          <DropdownTrigger>
+            {prop.displayUser === "full" ? (
+              <User
+                as="button"
+                name={user?.name}
+                description={user?.email}
+                avatarProps={{
+                  src: user?.image,
+                }}
+              />
+            ) : (
+              <User
+                as="button"
+                avatarProps={{
+                  src: user?.image,
+                }}
+              />
+            )}
           </DropdownTrigger>
           <DropdownMenu
             aria-label="User Actions"
