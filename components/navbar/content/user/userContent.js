@@ -9,13 +9,14 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 export const UserContent = (prop) => {
   const router = useRouter();
+
   let user = prop.user;
 
   const handleSelect = async (e) => {
     if (e == "logout") {
       const response = await fetch("../api/session/session_logout");
       const result = await response.json();
-      await signOut();
+      await signOut({ callbackUrl: "/" });
 
       if (result.ok) {
         router.push("/");
