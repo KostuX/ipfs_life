@@ -28,9 +28,9 @@ export const UserContent = (prop) => {
 
   return (
     <>
-      <div className=" gap-4 ">
-        <Dropdown placement="bottom-ends">
-          <DropdownTrigger>
+      <div className=" gap-4  border-y-1 ">
+        <Dropdown placement="bottom-ends ">
+          <DropdownTrigger className="m-10">
             <User
               as="button"
               name={user?.name}
