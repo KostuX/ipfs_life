@@ -1,10 +1,17 @@
 import { Link, NavbarMenuItem } from "@nextui-org/react";
 import { siteConfig } from "@/config/site";
+import { IsLoggedIn } from "@/lib/isLoggedIn";
+import { IsAdmin } from "@/lib/isAdmin";
 
-export function MenuItems() {
+export function MenuItems(prop) {
+  let menuArray = siteConfig.navMenuItems;
+  if (IsLoggedIn(prop.user_session)) {
+    menuArray = menuArray.concat(siteConfig.userNavItems);
+  }
+
   return (
     <>
-      {siteConfig.navMenuItems.map((item, index) => (
+      {menuArray.map((item, index) => (
         <NavbarMenuItem key={`${item}-${index}`}>
           <Link
             color={"foreground"}

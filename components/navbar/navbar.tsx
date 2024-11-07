@@ -64,19 +64,6 @@ import myValidator from "../../pages/api/classes/myValidator";
 import Google from "next-auth/providers/google";
 
 export const Navbar = (session) => {
-  const handleSelect = async (e) => {
-    if (e == "logout") {
-      const response = await fetch("../api/session/session_logout");
-      const result = await response.json();
-      await signOut();
-
-      if (result.ok) {
-        router.push("/");
-      }
-    } else if (e == "settings") {
-      router.push("/settings");
-    }
-  };
 
   const validator = new myValidator();
   const router = useRouter();

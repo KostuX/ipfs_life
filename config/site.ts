@@ -23,11 +23,14 @@ export const siteConfig = {
     },
   ],
 
-  adminNavItems: [
+  userNavItems: [
     {
       label: "History",
       href: "/history",
     },
+  ],
+
+  adminNavItems: [
     {
       label: "Stats",
       href: "/stats",
