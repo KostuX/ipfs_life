@@ -83,7 +83,7 @@ export function ButtonsContent(props) {
       );
     } else {
       return (
-        <NavbarItem className="hidden md:flex">
+        <NavbarItem className="hidden sm:flex">
           <Button size="sm" onPress={handler_Login}>
             Log in
           </Button>
