@@ -17,12 +17,15 @@ import {
 } from "@nextui-org/react";
 import React, { useState } from "react";
 import { ThemeSwitch } from "@/components/theme-switch";
+import { useRouter } from "next/router";
+
 import {
   GithubSignInButton,
   GoogleSignInButton,
 } from "@/components/navbar/content/OAuth/authButtons";
-
+import { useSession, signOut } from "next-auth/react";
 export function ButtonsContent(props) {
+  const router = useRouter();
   let user_session = props.user_session;
   const [errMsg, setErrMsg] = useState([]);
   const [registerInput, setRegisterInput] = useState({});
@@ -38,6 +41,20 @@ export function ButtonsContent(props) {
   const closeHandler_Reg = () => {
     setVisible_Reg(false);
     setErrMsg([]);
+  };
+
+  const handleSelect = async (e) => {
+    if (e == "logout") {
+      const response = await fetch("../api/session/session_logout");
+      const result = await response.json();
+      await signOut({ callbackUrl: "/" });
+
+      if (result.ok) {
+        router.push("/");
+      }
+    } else if (e == "settings") {
+      router.push("/settings");
+    }
   };
 
   function userButtons(user) {
