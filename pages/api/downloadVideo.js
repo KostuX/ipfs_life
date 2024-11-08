@@ -1,15 +1,11 @@
 const parseRange = require("range-parser");
 import { create } from "kubo-rpc-client";
 
-
-
 const { Readable } = require("stream");
 
 let ipfs = create({ url: "http://127.0.0.1:5001/api/v0" });
 
-
-
-export default async (req, res) => {
+export const DownloadVideo = async (req, res) => {
   let cid = req.query.cid;
   let token = req.query.token;
 
@@ -60,7 +56,4 @@ export default async (req, res) => {
     cid: cid,
     range: range,
   };
-
-
-
 };

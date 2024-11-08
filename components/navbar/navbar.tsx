@@ -78,12 +78,8 @@ export const Navbar = (session) => {
       <ButtonsContent user_session={user_session} />
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-
         <NavbarMenuToggle />
-        {user_session && <UserContent user={user_session} />}
-
         <ThemeSwitch />
-
       </NavbarContent>
 
       <SmMenuContent user_session={user_session} />

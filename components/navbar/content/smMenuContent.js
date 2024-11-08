@@ -13,7 +13,7 @@ export const SmMenuContent = (props) => {
       <div className=" m-10 border-y-1 text-center px-10 place-content-center">
         {user_session ? (
           <div className=" m-10">
-            <UserContent user={user_session} displayUser="full" />
+            <UserContent user={user_session} />
           </div>
         ) : (
           <div>

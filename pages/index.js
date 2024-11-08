@@ -614,7 +614,7 @@ export default function IndexPage({ session }) {
       }
     };
     clickButtonByAriaLabel();
-  }, []);
+  }, [input]);
   // ------------------------------------------  end of click button
 
   //===========================================================================  error message

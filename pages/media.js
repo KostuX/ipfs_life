@@ -200,12 +200,11 @@ export default function Media({ session }) {
     const clickButtonByAriaLabel = () => {
       const button = document.querySelector('[aria-label="submitBtn"]');
       if (button && input) {
-        console.log(input.length);
         button.click();
       }
     };
     clickButtonByAriaLabel();
-  }, []);
+  }, [input]);
 
   return (
     <DefaultLayout session={session}>

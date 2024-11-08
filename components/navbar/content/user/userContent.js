@@ -31,23 +31,14 @@ export const UserContent = (prop) => {
       <div className=" gap-4  ">
         <Dropdown placement="bottom-ends ">
           <DropdownTrigger>
-            {prop.displayUser === "full" ? (
-              <User
-                as="button"
-                name={user?.name}
-                description={user?.email}
-                avatarProps={{
-                  src: user?.image,
-                }}
-              />
-            ) : (
-              <User
-                as="button"
-                avatarProps={{
-                  src: user?.image,
-                }}
-              />
-            )}
+            <User
+              as="button"
+              name={user?.name}
+              description={user?.email}
+              avatarProps={{
+                src: user?.image,
+              }}
+            />
           </DropdownTrigger>
           <DropdownMenu
             aria-label="User Actions"
