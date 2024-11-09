@@ -6,7 +6,7 @@ import { ipfsTooltip } from "../public/templates/tooltip/tooltip";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import truncate from "@/lib/utils/textTrunkate"
-
+import {InputComponent } from "@/components/index/inputComponent"
 import { useSearchParams } from "next/navigation";
 import myValidator from "./api/classes/myValidator";
 
