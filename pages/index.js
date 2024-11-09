@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import { ipfsTooltip } from "../public/templates/tooltip/tooltip";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import truncate from "@/lib/utils/textTrunkate"
 
 import { useSearchParams } from "next/navigation";
 import myValidator from "./api/classes/myValidator";
@@ -426,8 +427,9 @@ export default function IndexPage({ session }) {
       return (
         <>
           <ButtonGroup variant="ghost">
-            <Button>{selectedOption_f.filename}</Button>
-            <Dropdown placement="bottom-end">
+            <Button className="flex sm:hidden">{truncate(selectedOption_f.filename,6)}</Button>
+          
+            <Button className="hidden sm:flex">{truncate(selectedOption_f.filename,16)}</Button>  <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <Button isIconOnly>{"..."}</Button>
               </DropdownTrigger>
@@ -456,7 +458,7 @@ export default function IndexPage({ session }) {
           </ButtonGroup>
 
           <ButtonGroup variant="ghost">
-            <Button>{selectedOption.ext}</Button>
+            <Button>{truncate(selectedOption.ext,7)}</Button>
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <Button isIconOnly>{"..."}</Button>

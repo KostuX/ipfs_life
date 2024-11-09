@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Grid from "@mui/material/Grid";
 import { Snackbar, Slide } from "@mui/material";
 import myValidator from "./api/classes/myValidator";
+import truncate from "@/lib/utils/textTrunkate"
 
 import React, { useState, useEffect } from "react";
 
@@ -104,14 +105,16 @@ export default function WallPage({ session }) {
       return <Button onClick={handleSubmit}>Submit</Button>;
     }
   }
-
+/*
   function trimCID(cid) {
-    let middle = " ..... ";
+    let middle = " ... ";
     let first3 = cid.substring(0, 4);
     let last3 = cid.substring(cid.length - 5, cid.length - 1);
 
     return `${first3}${middle}${last3}`;
   }
+
+  */
 
   function readableDate(date) {
     let currentDate = new Date(date);
@@ -162,8 +165,8 @@ export default function WallPage({ session }) {
             >
               {tableItems.map((e) => (
                 <TableRow key={e.cid}>
-                  <TableCell>{trimCID(e.cid)}</TableCell>
-                  <TableCell>{`${e.filename}.${e.ext}`}</TableCell>
+                  <TableCell>{truncate(e.cid,3)}</TableCell>
+                  <TableCell>{truncate(`${e.filename}.${e.ext}`,4)}</TableCell>
                   <TableCell>{e.type}</TableCell>
                   <TableCell>{e.secured}</TableCell>
                   <TableCell>{readableDate(e.created)}</TableCell>
