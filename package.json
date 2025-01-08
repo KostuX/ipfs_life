@@ -6,7 +6,8 @@
     "dev": "next dev -p 18888  ",
     "build": "next build",
     "start": "next start -p 18888 ",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type": "module"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

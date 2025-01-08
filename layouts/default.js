@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/navbar/navbar";
 import { Logo,Logo_s } from "@/components/icons";
 import { Link } from "@nextui-org/link";
 import { Head } from "./head";

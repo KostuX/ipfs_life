@@ -5,10 +5,15 @@ import Grid from "@mui/material/Grid";
 import { ipfsTooltip } from "../public/templates/tooltip/tooltip";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-
+import truncate from "@/lib/utils/textTrunkate";
+import { InputComponent } from "@/components/index/inputComponent";
 import { useSearchParams } from "next/navigation";
 import myValidator from "./api/classes/myValidator";
-
+import getUserIP from "@/lib/utils/getUserIP";
+import logOverAPI from "@/lib/utils/logOverAPI";
+import IntervalMng from "@/lib/utils/intervalMng";
+import getWorker from "@/lib/utils/getWorker";
+import apiCall from "@/lib/utils/apiCall";
 const path = require("path");
 
 import React, { useState, useEffect } from "react";
@@ -92,23 +97,17 @@ export default function IndexPage({ session }) {
     // get user IP address
     async function getIP() {
       try {
-        const response = await fetch("https://api.ipify.org?format=json");
-        const data = await response.json();
-
-        let ip = data.ip;
-        // let ip = '1.1.1.1'
+        let ip = await getUserIP();
+        //let ip = "1.1.1.1";
 
         let data_add = {
           type: "add",
           data: { type: "connected", data: { ip: ip } },
         };
-        fetch("/api/LoggerAPI", {
-          method: "POST",
-          body: JSON.stringify(data_add),
-          headers: { "Content-type": "application/json" },
-        });
+
+        logOverAPI(data_add);
       } catch (error) {
-        console.error("Error fetching the IP address:", error);
+        console.error("Error logging IP address:", error);
       }
     }
     getIP();
@@ -116,6 +115,12 @@ export default function IndexPage({ session }) {
 
   //================================================================================ intervals
   // intervals mng
+
+  let intervalManager = new IntervalMng();
+
+  {
+    /*
+
   var intervals = [];
   function startInterval(func, intervalTime) {
     const intervalId = setInterval(func, intervalTime);
@@ -126,7 +131,9 @@ export default function IndexPage({ session }) {
     intervals.forEach((e) => {
       clearInterval(e);
     });
+     */
   }
+
   //------------------------------------------------------------------- END intervals
 
   const resubmitCID = async () => {
@@ -144,6 +151,7 @@ export default function IndexPage({ session }) {
 
   //=============================================================================== server/load balance
 
+  /*
   const getServer = async (e) => {
     // add for load balancing
 
@@ -157,9 +165,11 @@ export default function IndexPage({ session }) {
       return "/";
     }
   };
-
+*/
   //------------------------------------------------------------------- END server
   //=============================================================================== api
+  /*
+  
   const apiCall = async (endpoint, data) => {
     let response = await fetch(endpoint, {
       method: "POST",
@@ -170,6 +180,8 @@ export default function IndexPage({ session }) {
 
     return response;
   };
+
+  */
 
   //------------------------------------------------------------------- END
   //=============================================================================== get  (info)
@@ -185,7 +197,7 @@ export default function IndexPage({ session }) {
     } else if (response.status == 200) {
       let data = await response.json();
 
-      clearIntervalAll();
+      intervalManager.clearIntervalAll();
       setIsSubmited(false);
 
       let date = new Date();
@@ -284,7 +296,7 @@ export default function IndexPage({ session }) {
   // ===================================================================================== Actual DOWNLOAD
   async function getFile(endpoint, data) {
     try {
-      server = await getServer(endpoint);
+      server = await getWorker(endpoint);
 
       /*
    let response = await fetch(server, {
@@ -354,6 +366,7 @@ export default function IndexPage({ session }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("input: ", input);
 
     // setInput(input);
     setErr_msg([]);
@@ -379,7 +392,7 @@ export default function IndexPage({ session }) {
         let res = await response.json();
 
         if (res.ok) {
-          startInterval(getInfo, 1000);
+          intervalManager.startInterval(getInfo, 1000);
         }
       } else {
         setIsSubmited(false);
@@ -410,6 +423,8 @@ export default function IndexPage({ session }) {
   }
   //--------------------------------------------------------------------- END of submit button
   // ======================================================================================== CID input
+
+  /*
   function cidInput() {
     return (
       <Input
@@ -419,6 +434,7 @@ export default function IndexPage({ session }) {
       />
     );
   }
+    */
   // ---------------------------------------------------------------------- End of input
 
   function fileNameSuggestion() {
@@ -426,7 +442,12 @@ export default function IndexPage({ session }) {
       return (
         <>
           <ButtonGroup variant="ghost">
-            <Button>{selectedOption_f.filename}</Button>
+            <Button className="flex sm:hidden">
+              {truncate(selectedOption_f.filename, 6)}
+            </Button>
+            <Button className="hidden sm:flex">
+              {truncate(selectedOption_f.filename, 16)}
+            </Button>{" "}
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <Button isIconOnly>{"..."}</Button>
@@ -456,7 +477,7 @@ export default function IndexPage({ session }) {
           </ButtonGroup>
 
           <ButtonGroup variant="ghost">
-            <Button>{selectedOption.ext}</Button>
+            <Button>{truncate(selectedOption.ext, 7)}</Button>
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <Button isIconOnly>{"..."}</Button>
@@ -614,7 +635,7 @@ export default function IndexPage({ session }) {
       }
     };
     clickButtonByAriaLabel();
-  }, []);
+  }, [input]);
   // ------------------------------------------  end of click button
 
   //===========================================================================  error message
@@ -698,7 +719,9 @@ export default function IndexPage({ session }) {
       >
         <Grid xs={2} item={true}></Grid>
         <Grid xs={8} item={true} justify="center">
-          {cidInput()}
+          <InputComponent input={input} onInputChange={setInput} />
+          {/* cidInput()*/}
+          {input}
         </Grid>
         <Grid xs={2} item={true}></Grid>
       </Grid>
